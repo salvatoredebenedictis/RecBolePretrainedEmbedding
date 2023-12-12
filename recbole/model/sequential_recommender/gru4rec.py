@@ -46,9 +46,14 @@ class GRU4Rec(SequentialRecommender):
         self.dropout_prob = config["dropout_prob"]
 
         # define layers and loss
-        self.item_embedding = nn.Embedding(
-            self.n_items, self.embedding_size, padding_idx=0
-        )
+                                        # self.item_embedding = nn.Embedding(
+                                        #     self.n_items, self.embedding_size, padding_idx=0
+                                        # )
+        print("Loading embeddings")
+        weights = torch.load('recbole\model\sequential_recommender\embedding_matrix.pth')
+        weights_reshaped = weights.view(62762, -1)  # Reshape the weights into a 2D tensor
+        self.item_embedding = nn.Embedding.from_pretrained(weights_reshaped)
+        print("Embeddings loaded from pretrained")
         self.emb_dropout = nn.Dropout(self.dropout_prob)
         self.gru_layers = nn.GRU(
             input_size=self.embedding_size,
