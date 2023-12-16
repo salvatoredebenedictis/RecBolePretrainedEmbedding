@@ -27,7 +27,7 @@ dict_params = {
     "embedding_size": 49,
     "dataset": "RECEIPT_LINES",
     "dropout_prob": 0.3,
-    "epochs": 5,
+    "epochs": 100,
     "eval_args": {
         "group_by": "Key_receipt",
         "mode": "full",

@@ -46,13 +46,11 @@ class GRU4Rec(SequentialRecommender):
         self.dropout_prob = config["dropout_prob"]
 
         # define layers and loss
-                                        # self.item_embedding = nn.Embedding(
-                                        #     self.n_items, self.embedding_size, padding_idx=0
-                                        # )
+        self.item_embedding = nn.Embedding(self.n_items, self.embedding_size, padding_idx=0)
         print("Loading embeddings")
-        weights = torch.load('recbole\model\sequential_recommender\embedding_matrix.pth')
-        weights_reshaped = weights.view(62762, -1)  # Reshape the weights into a 2D tensor
-        self.item_embedding = nn.Embedding.from_pretrained(weights_reshaped)
+        # weights = torch.load('recbole\model\sequential_recommender\embedding_matrix.pth')
+        # weights_reshaped = weights.view(62762, -1)  # Reshape the weights into a 2D tensor
+        # self.item_embedding = nn.Embedding.from_pretrained(weights_reshaped)
         print("Embeddings loaded from pretrained")
         self.emb_dropout = nn.Dropout(self.dropout_prob)
         self.gru_layers = nn.GRU(
@@ -75,7 +73,11 @@ class GRU4Rec(SequentialRecommender):
 
     def _init_weights(self, module):
         if isinstance(module, nn.Embedding):
-            xavier_normal_(module.weight)
+             print('ciao')
+             weights = torch.load('../test_run/embedding_matrix.pth')
+             weights_reshaped = weights.view(self.n_items,-1)  # Reshape the weights into a 2D tensor
+             module.weight.data.copy_(weights_reshaped)
+            ##xavier_normal_(module.weight)
         elif isinstance(module, nn.GRU):
             xavier_uniform_(module.weight_hh_l0)
             xavier_uniform_(module.weight_ih_l0)
