@@ -107,7 +107,7 @@ class Caser(SequentialRecommender):
         if isinstance(module, nn.Embedding):
             if module == 'item_embedding':
                 print('ciao')
-                weights = torch.load('../test_run/embedding_matrix.pth')
+                weights = torch.load('/kaggle/input/items-embedding/embedding_matrix.pth')
                 weights_reshaped = weights.view(self.n_items,-1)  # Reshape the weights into a 2D tensor
                 module.weight.data.copy_(weights_reshaped)
             elif module == 'user_embedding':
