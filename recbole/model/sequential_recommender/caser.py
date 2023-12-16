@@ -105,7 +105,13 @@ class Caser(SequentialRecommender):
 
     def _init_weights(self, module):
         if isinstance(module, nn.Embedding):
-            normal_(module.weight.data, 0, 1.0 / module.embedding_dim)
+            if module == 'item_embedding':
+                print('ciao')
+                weights = torch.load('../test_run/embedding_matrix.pth')
+                weights_reshaped = weights.view(self.n_items,-1)  # Reshape the weights into a 2D tensor
+                module.weight.data.copy_(weights_reshaped)
+            elif module == 'user_embedding':
+                normal_(module.weight.data, 0, 1.0 / module.embedding_dim)
         elif isinstance(module, nn.Linear):
             xavier_normal_(module.weight.data)
             if module.bias is not None:
