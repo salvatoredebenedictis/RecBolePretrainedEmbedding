@@ -59,16 +59,17 @@ class TransRec(SequentialRecommender):
 
     def _init_weights(self, module):
         """Initialize the weights"""
-        if isinstance(module, (nn.Embedding)) and  module == 'item_embedding':
-       
+        if isinstance(module, nn.Embedding): 
+            print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+            if module.num_embeddings == self.n_items:
             # Slightly different from the TF version which uses truncated_normal for initialization
             # cf https://github.com/pytorch/pytorch/pull/5617
-            #module.weight.data.normal_(mean=0.0, std=self.initializer_range)
                 weights = torch.load('/kaggle/input/items-embedding/embedding_matrix.pth')
                 weights_reshaped = weights.view(self.n_items,-1) 
                 module.weight.data.copy_(weights_reshaped)
+                print("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
 
-        else: xavier_normal_initialization(module.weight.data)
+            else: xavier_normal_initialization(module.weight.data)
 
 
     def _l2_distance(self, x, y):

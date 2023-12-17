@@ -1,21 +1,12 @@
-import recbole
 import logging
 from logging import getLogger
 from recbole.config import Config
 from recbole.data import create_dataset, data_preparation
 from recbole.model.sequential_recommender import TransRec
-from recbole.quick_start.quick_start import run
 from recbole.trainer import Trainer
 from recbole.utils import init_seed, init_logger
-from recbole.config import Config
-from recbole.data import create_dataset, data_preparation
-from recbole.quick_start import load_data_and_model
 import torch
-from recbole.quick_start import run_recbole
-import pandas as pd
-import glob
-import numpy as np
-import pandas as pd
+from torch import nn
 
 dict_params = {
      "gpu_id": '0',
@@ -35,7 +26,7 @@ dict_params = {
     "data_path": "/kaggle/input/final-receipt-lines",
     "dataset": "RECEIPT_LINES",
     "dropout_prob": 0.3,
-    "embedding_size": 64,
+    "embedding_size": 49,
     "epochs": 100,
     "eval_args": {
         "group_by": "Key_receipt",
