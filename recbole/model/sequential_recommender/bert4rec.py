@@ -96,15 +96,20 @@ class BERT4Rec(SequentialRecommender):
 
     def _init_weights(self, module):
         """Initialize the weights"""
-        if isinstance(module, (nn.Linear, nn.Embedding)):
-            if module == 'item_embedding':
-            # Slightly different from the TF version which uses truncated_normal for initialization
-            # cf https://github.com/pytorch/pytorch/pull/5617
-            #module.weight.data.normal_(mean=0.0, std=self.initializer_range)
+        if isinstance(module, (nn.Embedding)):
+            if module.num_embeddings ==  self.n_items+1:
+                print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+                # Slightly different from the TF version which uses truncated_normal for initialization
+                # cf https://github.com/pytorch/pytorch/pull/5617
+                #module.weight.data.normal_(mean=0.0, std=self.initializer_range)
                 weights = torch.load('/kaggle/input/items-embedding/embedding_matrix.pth')
-                weights_reshaped = weights.view(self.n_items,-1)  # Reshape the weights into a 2D tensor
+                #weights = torch.load('D:/Universita/RecBolePretrainedEmbedding/test_run/embedding_matrix.pth')
+                last_element = weights[-1].unsqueeze(0)  # Get the last element and add an extra dimension
+                weights = torch.cat((weights, last_element))  # Append the last element to the tensor
+                weights_reshaped = weights.view(self.n_items+1,-1)  # Reshape the weights into a 2D tensor
                 module.weight.data.copy_(weights_reshaped)
-            else: module.weight.data.normal_(mean=0.0, std=self.initializer_range)
+        elif isinstance(module, (nn.Linear)):
+            module.weight.data.normal_(mean=0.0, std=self.initializer_range)
         elif isinstance(module, nn.LayerNorm):
             module.bias.data.zero_()
             module.weight.data.fill_(1.0)
