@@ -23,6 +23,7 @@ dict_params = {
     "Q_DISCOUNT_AMOUNT_FIELD": "Q_DISCOUNT_AMOUNT",
     "TIME_FIELD": "TS_T_RECEIPT",
     "USER_ID_FIELD": "K_MEMBER",
+    #"data_path": "",
     "data_path": "/kaggle/input/final-receipt-lines",
     "dataset": "RECEIPT_LINES",
     "dropout_prob": 0.3,
