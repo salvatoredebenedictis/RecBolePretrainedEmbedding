@@ -74,9 +74,8 @@ class GRU4Rec(SequentialRecommender):
     def _init_weights(self, module):
         if isinstance(module, nn.Embedding):
              print('ciao')
-             weights = torch.load('/kaggle/input/items-embedding/embedding_matrix.pth')
-             weights_reshaped = weights.view(self.n_items,-1)  # Reshape the weights into a 2D tensor
-             module.weight.data.copy_(weights_reshaped)
+             weights = torch.load('/kaggle/input/items-embedding-2/embedding_matrix.pth')
+             module.weight.data.copy_(weights)
             ##xavier_normal_(module.weight)
         elif isinstance(module, nn.GRU):
             xavier_uniform_(module.weight_hh_l0)
