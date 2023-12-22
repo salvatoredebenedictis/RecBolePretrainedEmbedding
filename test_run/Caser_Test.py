@@ -26,7 +26,7 @@ dict_params = {
     "TIME_FIELD": "TS_T_RECEIPT",
     "USER_ID_FIELD": "K_MEMBER",
     "data_path": "/kaggle/input/receipt-lines",
-    "embedding_size": 49,
+    "embedding_size": 64,
     "dataset": "RECEIPT_LINES",
     "dropout_prob": 0.3,
     "epochs": 100,

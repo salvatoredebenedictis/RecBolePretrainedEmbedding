@@ -25,10 +25,10 @@ dict_params = {
     "Q_DISCOUNT_AMOUNT_FIELD": "Q_DISCOUNT_AMOUNT",
     "TIME_FIELD": "TS_T_RECEIPT",
     "USER_ID_FIELD": "K_MEMBER",
-    #"data_path": "",
+    "data_path": "",
     #"data_path": "/kaggle/input/receipt-lines",
-    "data_path": "/kaggle/input/final-receipt-lines",
-    "embedding_size": 49,
+    #"data_path": "/kaggle/input/final-receipt-lines",
+    "embedding_size": 64,
     "n_heads": 7,
     "dataset": "RECEIPT_LINES",
     "dropout_prob": 0.3,
@@ -42,7 +42,7 @@ dict_params = {
         }
     },
     "eval_batch_size": 1024,
-    "hidden_size": 49,
+    "hidden_size": 128,
     "load_col": {
         "inter": [
             "K_MEMBER",

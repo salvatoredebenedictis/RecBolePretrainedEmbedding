@@ -62,11 +62,8 @@ class TransRec(SequentialRecommender):
         if isinstance(module, nn.Embedding): 
             if module.num_embeddings == self.n_items and module.embedding_dim != 1:
             # Slightly different from the TF version which uses truncated_normal for initialization
-            # cf https://github.com/pytorch/pytorch/pull/5617
-                weights = torch.load('/kaggle/input/items-embedding/embedding_matrix.pth')
-                #weights = torch.load('D:/Universita/RecBolePretrainedEmbedding/test_run/embedding_matrix.pth')
-                weights_reshaped = weights.view(self.n_items,-1)
-                module.weight.data.copy_(weights_reshaped)
+                weights = torch.load('/kaggle/input/items-embedding-2/embedding_matrix.pth')
+                module.weight.data.copy_(weights)
             else: xavier_normal_initialization(module.weight.data)
 
 
