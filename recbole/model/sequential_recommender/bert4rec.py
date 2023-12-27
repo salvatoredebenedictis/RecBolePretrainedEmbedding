@@ -100,8 +100,8 @@ class BERT4Rec(SequentialRecommender):
             if module.num_embeddings ==  self.n_items+1:
                 # Slightly different from the TF version which uses truncated_normal for initialization
                 weights = torch.load('/kaggle/input/items-embedding-2/embedding_matrix.pth')
-                last_element = weights[0]  # Get the last element and add an extra dimension
-                weights = torch.cat((weights, last_element))  # Append the last element to the tensor
+                last_element = weights[0].unsqueeze(0)  # Add an extra dimension
+                weights = torch.cat((weights, last_element), dim=0)  # Append the last element to the tensor  # Append the last element to the tensor
                 module.weight.data.copy_(weights)
         elif isinstance(module, (nn.Linear)):
             module.weight.data.normal_(mean=0.0, std=self.initializer_range)
