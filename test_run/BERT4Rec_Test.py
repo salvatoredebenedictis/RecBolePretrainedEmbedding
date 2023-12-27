@@ -29,7 +29,6 @@ dict_params = {
     #"data_path": "/kaggle/input/receipt-lines",
     "data_path": "/kaggle/input/final-receipt-lines",
     "embedding_size": 64,
-    "n_heads": 7,
     "dataset": "RECEIPT_LINES",
     "dropout_prob": 0.3,
     "epochs": 100,
